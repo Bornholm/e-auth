@@ -1,0 +1,32 @@
+version: '2'
+services:
+  provider:
+    build:
+      context: containers/provider
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    links:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      DEBUG: '*'
+  db:
+    build:
+      context: containers/db
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
+    volumes:
+      - .docker/db/data:/data/db
+    ports:
+      - 27017:27017

@@ -1,0 +1,23 @@
+{
+  "name": "e-auth",
+  "version": "0.0.0",
+  "description": "OpenID Connect server for PCLL services",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "forever --colors -w server.js"
+  },
+  "author": "Team EOLE <eole@ac-dijon.fr>",
+  "license": "CECILL-2.1",
+  "dependencies": {
+    "express": "^4.15.2",
+    "lodash.snakecase": "^4.1.1",
+    "mongodb": "^2.2.25",
+    "oidc-provider": "^1.15.5",
+    "rc": "^1.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "forever": "^0.15.3"
+  }
+}

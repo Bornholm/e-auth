@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+/* eslint-disable no-console */
+'use strict';
+
+const path = require('path');
+const MongoClient = require('mongodb').MongoClient;
+const config = require('../config');
+
+const clientsCollectionName = 'client';
+const clientsFile = process.argv[2];
+
+if (!clientsFile) {
+  console.log('Load the given clients file to e-auth database\n');
+  console.log('Usage: load-clients /path/to/clients.js\n');
+  console.log('See examples/clients-example.js for an example.');
+  process.exit(1);
+}
+
+const clients = require(path.resolve(clientsFile));
+
+MongoClient.connect(config.db.uri)
+  .then(db => {
+    return db.dropCollection(clientsCollectionName)  // Drop clients collection to prevent duplicates
+      .then(() => db.createCollection(clientsCollectionName)) // Recreate clients collection
+      .then(col => {
+        clients.forEach(c => c._id = c.client_id); // Map document id to client_id
+        return col.insertMany(clients);
+      }) // Insert clients data
+      .then(() => db.close()) // Close connection
+    ;
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  })
+;
+/* eslint-enable no-console */
