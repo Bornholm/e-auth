@@ -5,12 +5,18 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "forever --colors -w server.js"
+    "start:dev": "nodemon | bunyan -o short"
   },
   "author": "Team EOLE <eole@ac-dijon.fr>",
   "license": "CECILL-2.1",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "bootstrap": "^3.3.7",
+    "bunyan": "^1.8.10",
+    "bunyan-middleware": "^0.6.0",
+    "ejs": "^2.5.6",
     "express": "^4.15.2",
+    "jquery": "^3.2.1",
     "lodash.snakecase": "^4.1.1",
     "mongodb": "^2.2.25",
     "oidc-provider": "^1.15.5",
@@ -18,6 +24,6 @@
   },
   "devDependencies": {
     "eslint": "^3.19.0",
-    "forever": "^0.15.3"
+    "nodemon": "^1.11.0"
   }
 }

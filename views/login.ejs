@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authentification - PCLL</title>
+    <link href="../../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body style="background:#efefef">
+    <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:space-around;">
+      <div style="padding:0 10px">
+        <div class="panel panel-default">
+          <div class="panel-body" style="padding:5px 25px;">
+            <div style="display:flex">
+              <div style="display:flex;padding-right:20px">
+                <img src="../../public/img/pcll-logo.svg" style="max-width:170px" />
+              </div>
+              <div style="display:flex;flex-direction:column;justify-content:center;">
+                <form class="form" action="<%= interaction.uuid %>/login" method="POST">
+                  <div class="form-group">
+                    <label for="uid">Identifiant</label>
+                    <input type="text" class="form-control" id="uid" name="uid">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                  <div class="pull-right">
+                    <button type="submit" class="btn btn-primary btn-sm">Se connecter</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../public/vendor/jquery/jquery.min.js"></script>
+    <script src="../../public/vendor/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

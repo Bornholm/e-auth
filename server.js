@@ -4,8 +4,11 @@ const express = require('express');
 const OpenIDProvider = require('oidc-provider');
 const MongoClient = require('mongodb').MongoClient;
 const config = require('./config');
-const MongoAdapterFactory = require('./lib/mongo-adapter-factory');
-const AccountsFinderFactory = require('./lib/accounts-finder-factory');
+const MongoAdapterFactory = require('./lib/adapter/mongo-adapter-factory');
+const EAuthInteractions = require('./lib/e-auth-interactions');
+const Account = require('./lib/models/account');
+const Logger = require('./lib/util/logger');
+const BunyanMiddleware = require('bunyan-middleware');
 
 // Create Express app
 const app = express();
@@ -17,21 +20,25 @@ MongoClient.connect(config.db.uri)
 
     // Complete configuration with custom adapter/hooks
     config.provider.adapter = MongoAdapterFactory;
-    config.provider.findById = AccountsFinderFactory(db);
+    Account.setConfig(config.accounts);
+    config.provider.findById = Account.findAccountById.bind(Account);
 
     const provider = new OpenIDProvider(config.provider.issuer, config.provider);
     // Initialize OpenID provider
     return provider.initialize()
       .then(() => {
-        app.use(provider.callback);
+        app.use(BunyanMiddleware({ logger: Logger }));
+        app.use(new EAuthInteractions(provider));
+        app.use(config.http.providerBaseUrl, provider.callback);
       })
     ;
+
   })
   .then(() => { // Start listening for requests
     return new Promise((resolve, reject) => {
       app.listen(config.http.port, config.http.host, err => {
         if (err) return reject(err);
-        console.log(`listening on http://${config.http.host}:${config.http.port}/`); // eslint-disable-line no-console
+        Logger.info(`listening on http://${config.http.host}:${config.http.port}${config.http.providerBaseUrl}`);
         return resolve();
       });
     });

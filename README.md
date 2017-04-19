@@ -18,6 +18,7 @@ OpenID Provider for PCLL services
 ```bash
 cd e-auth
 npm install
+./scripts/dump-assets
 docker-compose up
 # Then open your browser to http://localhost:3000
 # See docker-compose.yml and containers/*/Dockerfile for more details
@@ -31,6 +32,7 @@ docker-compose up
 
   ```bash
   npm install
+  ./scripts/dump-assets
   npm start
   ```
 
@@ -42,6 +44,13 @@ After running `docker-compose up`, in another terminal:
 
 ```bash
 docker-compose exec db mongo
+```
+
+### How to load/overwrite provider's authorized clients ?
+
+```bash
+docker-compose exec provider sh
+./script/load-clients /path/to/clients.js # See examples/clients-example.js
 ```
 
 ## Licence

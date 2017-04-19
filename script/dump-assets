@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+NPM_DIR="${DIR}/../node_modules"
+VENDOR_DIR="${DIR}/../public/vendor"
+
+# Reset vendor directory
+rm -rf "${VENDOR_DIR}"
+mkdir -p "${VENDOR_DIR}"
+
+# Link assets to vendor directory
+ln -s "${NPM_DIR}/bootstrap/dist" "${VENDOR_DIR}/bootstrap"
+ln -s "${NPM_DIR}/jquery/dist" "${VENDOR_DIR}/jquery"
