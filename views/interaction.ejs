@@ -7,11 +7,31 @@
     <link href="../../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body style="background:#efefef">
-    <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:space-around;">
+    <div style="display:flex;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;">
 
-      <div style="padding:0 10px">
+      <% if (interaction.interaction.error == 'consent_required') { %>
+      <div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Autorisation requise</div>
+          <div class="panel-body" style="padding:5px 25px;">
+            <p>Souhaitez vous autoriser l'application <b>"<%= interaction.params.client_id %>"</b> à accéder à vos informations ?</p>
+            <div class="pull-right">
+              <form method="POST" action="<%= interaction.uuid %>">
+                <button type="submit" name="cancel" class="btn btn-warning btn-sm">Ne pas autoriser</button>
+                <button type="submit" name="authorize" class="btn btn-success btn-sm">Autoriser</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+      <% if (env == 'development') { %>
+      <div>
         <pre><%= JSON.stringify(interaction, null, 2) %></pre>
       </div>
+      <% } %>
+
     </div>
     <script src="../../public/vendor/jquery/jquery.min.js"></script>
     <script src="../../public/vendor/bootstrap/js/bootstrap.min.js"></script>

@@ -25,6 +25,8 @@
   },
   "devDependencies": {
     "eslint": "^3.19.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "openid-client": "^1.8.1",
+    "passport": "^0.3.2"
   }
 }

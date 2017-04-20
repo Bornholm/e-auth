@@ -27,11 +27,11 @@ function configure(db) {
   MongoAdapterFactory.setDatabase(db);
 
   // Complete configuration with custom adapter/hooks
-  config.provider.adapter = MongoAdapterFactory;
+  config.provider.options.adapter = MongoAdapterFactory;
   Account.setConfig(config.accounts);
-  config.provider.findById = Account.findAccountById.bind(Account);
+  config.provider.options.findById = Account.findAccountById.bind(Account);
 
-  const provider = new OpenIDProvider(config.provider.issuer, config.provider);
+  const provider = new OpenIDProvider(config.provider.issuer, config.provider.options);
 
   // Initialize OpenID provider
   return provider.initialize()
@@ -43,7 +43,7 @@ function configure(db) {
       // Mount express endpoints
       app.use(morgan('combined'));
       app.use(new OpenIDConnectInteractionsRoutes(config.http, provider));
-      if (app.get('env') === 'development') app.use(new DebugRoutes(config.http));
+      if (app.get('env') === 'development') app.use(new DebugRoutes(config.http, config.debug));
       app.use(config.http.providerBaseUrl, provider.callback);
       app.use('/public', express.static(__dirname + '/public'));
 
@@ -62,7 +62,7 @@ function listen() {
   return new Promise((resolve, reject) => {
     app.listen(config.http.port, config.http.host, err => {
       if (err) return reject(err);
-      console.log(`listening on http://${config.http.host}:${config.http.port}${config.http.providerBaseUrl}`); // eslint-disable-line no-console
+      console.log(`listening on http://${config.http.host}:${config.http.port}`); // eslint-disable-line no-console
       return resolve();
     });
   });
