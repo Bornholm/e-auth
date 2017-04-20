@@ -1,3 +1,4 @@
+/.e-authrc
 /node_modules
 *.log
 /.docker

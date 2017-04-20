@@ -1,9 +1,24 @@
 module.exports = require('rc')('e-auth', {
 
   http: {
+
     host: '0.0.0.0',
     port: 3333,
     providerBaseUrl: '/oidc',
+
+    settings: {
+      views: 'views',
+      'view engine': 'ejs',
+    },
+
+    session: {
+      secret: 'NotSoSecret',
+      saveUninitialized: true,
+      resave: false,
+      cookie: {
+        maxAge: 60000,
+      },
+    },
   },
 
   provider: {
@@ -21,8 +36,13 @@ module.exports = require('rc')('e-auth', {
   accounts: {
     uri: 'mongodb://localhost:27017/e-users',
     collection: 'users',
-    uidAttribute: 'uid',
-    passwordAttribute: 'password',
+    uidField: 'uid',
+    passwordField: 'password',
+    saltField: 'salt',
+    hashingOptions: {
+      iterations: 10000,
+      keyLength: 64,
+    },
   },
 
 
