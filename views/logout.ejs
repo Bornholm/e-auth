@@ -1,0 +1,48 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authentification - PCLL</title>
+    <link href="../../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body style="background:#efefef">
+    <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:space-around;">
+
+      <div style="padding:0 10px">
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><%= req.query.loggedOut ? "Déconnexion" : "Se déconnecter" %></div>
+          <div class="panel-body" style="padding:5px 25px;">
+            <div style="display:flex">
+
+              <div style="display:flex;padding-right:20px;align-items:center">
+                <img src="../../public/img/pcll-logo.svg" style="max-width:120px;height:100px" />
+              </div>
+
+              <div style="display:flex;flex-direction:column;justify-content:center;">
+                <% if (!req.query.loggedOut) { %>
+                <div>
+                  <%- form %>
+                  <p>
+                    Souahitez vous réellement vous déconnecter ?
+                  </p>
+                  <div class="pull-right">
+                    <button type="submit" form="op.logoutForm" class="btn btn-warning btn-sm">Non</button>
+                    <button type="submit" form="op.logoutForm" class="btn btn-success btn-sm" value="yes">Oui</button>
+                  </div>
+                </div>
+                <% } else { %>
+                  <b>Vous êtes déconnecté.</b>
+                <% } %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../public/vendor/jquery/jquery.min.js"></script>
+    <script src="../../public/vendor/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

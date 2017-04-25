@@ -11,7 +11,7 @@
       <% if(req.user) { %>
       <div class="panel">
         <h1>Authenticated !<h1>
-        <pre><%= JSON.stringify(req.user, null, 2) %></pre>
+        <pre style="max-width:500px"><%= JSON.stringify(req.user, null, 2) %></pre>
       </div>
       <% } %>
       <div style="padding:0 10px">

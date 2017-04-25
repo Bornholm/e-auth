@@ -9,6 +9,7 @@ const OpenIDConnectInteractionsRoutes = require('./lib/routes/oidc-interactions'
 const DebugRoutes = require('./lib/routes/debug');
 const Account = require('./lib/models/account');
 const morgan = require('morgan');
+const ejs = require('ejs');
 
 // Create Express app
 const app = express();
@@ -30,6 +31,17 @@ function configure(db) {
   config.provider.options.adapter = MongoAdapterFactory;
   Account.setConfig(config.accounts);
   config.provider.options.findById = Account.findAccountById.bind(Account);
+
+  // Override default logout view
+  config.provider.options.logoutSource = function(form) {
+    return new Promise((resolve, reject) => {
+      ejs.renderFile(config.http.settings.views+'/logout.ejs', { form: form, req: this.req }, (err, content) => {
+        if (err) return reject(err);
+        this.body = content;
+        return resolve(content);
+      });
+    });
+  };
 
   const provider = new OpenIDProvider(config.provider.issuer, config.provider.options);
 

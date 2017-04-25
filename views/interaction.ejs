@@ -14,12 +14,21 @@
         <div class="panel panel-default">
           <div class="panel-heading">Autorisation requise</div>
           <div class="panel-body" style="padding:5px 25px;">
-            <p>Souhaitez vous autoriser l'application <b>"<%= interaction.params.client_id %>"</b> à accéder à vos informations ?</p>
-            <div class="pull-right">
-              <form method="POST" action="<%= interaction.uuid %>">
-                <button type="submit" name="cancel" class="btn btn-warning btn-sm">Ne pas autoriser</button>
-                <button type="submit" name="authorize" class="btn btn-success btn-sm">Autoriser</button>
-              </form>
+            <div style="display:flex;align-items:center">
+
+              <div style="display:flex;padding-right:20px;align-items:center">
+                <img src="../../public/img/pcll-logo.svg" style="max-width:120px;height:100px" />
+              </div>
+
+              <div>
+                <p>Souhaitez vous autoriser l&lsquo;application <b>"<%= interaction.params.client_id %>"</b> à accéder à vos informations ?</p>
+                <div class="pull-right">
+                  <form method="POST" action="<%= interaction.uuid %>">
+                    <button type="submit" name="cancel" class="btn btn-warning btn-sm">Ne pas autoriser</button>
+                    <button type="submit" name="authorize" class="btn btn-success btn-sm">Autoriser</button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
