@@ -46,7 +46,7 @@ function configure(db) {
   const provider = new OpenIDProvider(config.provider.issuer, config.provider.options);
 
   // Initialize OpenID provider
-  return provider.initialize()
+  return provider.initialize({ keystore: config.provider.keystore, integrity: config.provider.integrity })
     .then(() => {
 
       // Load Express settings

@@ -13,7 +13,7 @@ module.exports = require('rc')('e-auth', {
 
     session: {
       name: 'e-auth',
-      secret: 'NotSoSecret',
+      secret: 'NotSoSecret', // Change this to something unique to your instance
       saveUninitialized: false,
       resave: false,
       cookie: {
@@ -25,10 +25,12 @@ module.exports = require('rc')('e-auth', {
 
   provider: {
 
+    // The base URL of your OIC provider
     issuer: 'http://localhost:3333/oidc',
 
     options: {
 
+      // You should not need to modifiy this
       features: {
         // See https://github.com/panva/node-oidc-provider/blob/master/docs/configuration.md#enabledisable-optional-oidc-provider-features
         devInteractions: false,
@@ -52,10 +54,13 @@ module.exports = require('rc')('e-auth', {
 
   },
 
+  // Database configuration (for storing sessions, tokens, etc)
   db: {
     uri: 'mongodb://localhost:27017/e-auth',
   },
 
+  // Acounts database configuration
+  // For now, only "e-users" backend is available
   accounts: {
     uri: 'mongodb://localhost:27017/e-users',
     collection: 'users',
@@ -68,6 +73,8 @@ module.exports = require('rc')('e-auth', {
     },
   },
 
+  // Debug endpoint configuration (/debug)
+  // Disable by default, use NODE_ENV=development env variable to enable
   debug: {
     issuer: 'http://localhost:3333/oidc/',
     client: {

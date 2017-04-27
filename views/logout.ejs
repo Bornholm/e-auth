@@ -25,10 +25,10 @@
                 <div>
                   <%- form %>
                   <p>
-                    Souahitez vous réellement vous déconnecter ?
+                    Souhaitez vous mettre fin à votre session OpenID ?
                   </p>
                   <div class="pull-right">
-                    <button type="submit" form="op.logoutForm" class="btn btn-warning btn-sm">Non</button>
+                    <a href="<%= req.get('referer') %>" class="btn btn-warning btn-sm">Non</a>
                     <button type="submit" form="op.logoutForm" class="btn btn-success btn-sm" value="yes">Oui</button>
                   </div>
                 </div>
