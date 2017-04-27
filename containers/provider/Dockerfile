@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.5
 
 MAINTAINER Team EOLE <eole@ac-dijon.fr>
 
@@ -7,8 +7,11 @@ ARG HTTPS_PROXY=
 ARG http_proxy=
 ARG https_proxy=
 
-RUN apk --no-cache add nodejs
+RUN apk --no-cache add nodejs bash
+
+ADD container-entrypoint.sh /root/container-entrypoint.sh
+RUN chmod +x /root/container-entrypoint.sh
 
 WORKDIR /app
 
-CMD ["npm", "run", "start:dev"]
+CMD ["/root/container-entrypoint.sh"]

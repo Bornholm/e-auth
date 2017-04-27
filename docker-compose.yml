@@ -15,9 +15,11 @@ services:
     links:
       - db
     ports:
-      - 3000:3000
+      - 3333:3333
     environment:
-      DEBUG: '*'
+      e-auth_http__settings__env: development
+      e-auth_db__uri: mongodb://db:27017/e-auth
+      e-auth_accounts__uri: mongodb://db:27017/e-users
   db:
     build:
       context: containers/db

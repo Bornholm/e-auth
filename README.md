@@ -17,9 +17,6 @@ OpenID Provider for PCLL services
 
 ```bash
 cd e-auth
-npm install
-./scripts/dump-assets
-./scripts/generate-keystores
 docker-compose up
 
 # Then open your browser to http://localhost:3000
@@ -37,8 +34,6 @@ docker-compose up
 
   ```bash
   npm install
-  ./scripts/dump-assets
-  ./scripts/generate-keystores
   npm start:dev
 
   # See "FAQ - How to load/overwrite provider's authorized clients ?"
