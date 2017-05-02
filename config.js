@@ -1,16 +1,19 @@
 module.exports = require('rc')('e-auth', {
 
+  // Web server configuration
   http: {
 
-    host: '0.0.0.0',
-    port: 3333,
-    providerBaseUrl: '/oidc',
+    host: '0.0.0.0', // The host to listen to, 0.0.0.0 to listen on all interfaces
+    port: 3333, // The port
+    providerBaseUrl: '/oidc', // The path prefix of the OIDC provider
 
+    // Express settings, see http://expressjs.com/en/4x/api.html#app.set
     settings: {
       views: 'views',
       'view engine': 'ejs',
     },
 
+    // Express session configuration
     session: {
       name: 'e-auth',
       secret: 'NotSoSecret', // Change this to something unique to your instance
@@ -23,9 +26,10 @@ module.exports = require('rc')('e-auth', {
 
   },
 
+  // OpenID Connect provider configuration
   provider: {
 
-    // The base URL of your OIC provider
+    // The public base URL of your OIC provider
     issuer: 'http://localhost:3333/oidc',
 
     options: {
