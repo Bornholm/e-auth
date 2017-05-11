@@ -20,7 +20,11 @@ const clients = require(path.resolve(clientsFile));
 
 MongoClient.connect(config.db.uri)
   .then(db => {
-    return db.dropCollection(clientsCollectionName)  // Drop clients collection to prevent duplicates
+    return db.listCollections({ name: clientsCollectionName }).toArray()
+      .then(collections => {
+        const exists = collections.length > 0;
+        if (exists) return db.dropCollection(clientsCollectionName);  // Drop clients collection to prevent duplicates
+      })
       .then(() => db.createCollection(clientsCollectionName)) // Recreate clients collection
       .then(col => {
         clients.forEach(c => c._id = c.client_id); // Map document id to client_id
